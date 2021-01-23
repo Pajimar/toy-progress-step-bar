@@ -1,0 +1,120 @@
+@import url("https://fonts.googleapis.com/css2?family=Muli:wght@400;700&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Muli", sans-serif;
+
+  margin: 0;
+  height: 100vh;
+
+  display: flex;
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+.container {
+  text-align: center;
+}
+
+.progress-container {
+  display: flex;
+  justify-content: space-between;
+
+  position: relative; /*asi luego la barra, contenida en este div, puede posicionarse sobre el haciendo position absolute */
+
+  margin-bottom: 30px;
+  width: 350px;
+  max-width: 100%; /*el div nunca se hara mas pequeño de 350 px, aunque la ventana reduzca tamaño*/
+}
+
+/*linea blanca de fondo */
+.progress-container::before {
+  content: " ";
+  background-color: #e0e0e0;
+
+  position: absolute;
+  top: 50%;
+  left: 0;
+
+  height: 4px;
+
+  width: 100%;
+  z-index: -1;
+
+  transform: translateY(-50%);
+}
+
+.progress {
+  /*linea*/
+  background-color: #3498db;
+  position: absolute; /*posicionamiento respecto de progress-container*/
+  top: 50%;
+  left: 0;
+
+  height: 4px;
+
+  width: 0%; /*esto se modifica con js para que vaya alargandose*/
+  z-index: -1; /*no tapa los divs de los numeros*/
+
+  transition: width 0.4s ease; /*cuando se modifique la anchura de la barra, se alcanzará el nuevo valor en 0.4s. El efecto ease es : lento-rapido-lento*/
+
+  transform: translateY(-50%);
+}
+
+/*div que hace de circulo*/
+.circle {
+  /*forma al div*/
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  /*alinear el numero dentro del div*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 3px solid #e0e0e0; /*mismo color que el div que hace de barra*/
+  background-color: #fff;
+  color: #999; /*color numero*/
+
+  transition: 0.4s ease;
+}
+
+.active {
+  border: 3px solid #3498db;
+}
+
+.btn {
+  border: 0;
+  background-color: #3498db;
+  color: #fff;
+
+  padding: 8px 30px;
+  border-radius: 6px;
+  margin: 10px;
+
+  font-size: 14px;
+  font-family: "Muli";
+  cursor: pointer;
+}
+
+.btn:focus {
+  /*al clikar, que no sea vea el borde negro alrededor del boton*/
+  outline: 0;
+}
+
+/*mientras dura el click */
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn:disabled {
+  background-color: #e0e0e0;
+  cursor: not-allowed;
+}
